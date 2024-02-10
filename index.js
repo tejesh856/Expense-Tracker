@@ -1,10 +1,17 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors=require('cors');
 const mongodb = require('./db');
 const app = express();
 const PORT = 3000;
 
 mongodb().then(async () => {
+    app.use(cors(
+        {
+            origin: '*'
+        }
+
+    ));
     await app.use(bodyParser.urlencoded({ extended: true }));
     await app.use(bodyParser.json());
     await app.use('/',express.static('public'));
